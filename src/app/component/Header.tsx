@@ -4,12 +4,12 @@ import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import Logo from '../images/logo.png'
-import { Menu, X } from 'lucide-react'
+// import { Menu, X } from 'lucide-react'
 import { usePathname } from 'next/navigation';
 
 function header() {
     const [isScroll, setIsScroll] = useState(false);
-    const [isOpen, setIsOpen] = useState(false);
+    // const [isOpen, setIsOpen] = useState(false);
     const pathname = usePathname();
 
     const isHome = pathname === '/';

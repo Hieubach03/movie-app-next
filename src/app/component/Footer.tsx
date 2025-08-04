@@ -2,9 +2,6 @@
 import React, { useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import ImgFooter1 from '../images/footter1-netflix.jpg'
-import ImgFooter2 from '../images/footter2-netflix.jpg'
-import ImgLogo from '../images/Netflix_Logo_RGB.png'
 import Logo from '../images/logo.png'
 import Policy from '../policy/Policy';
 

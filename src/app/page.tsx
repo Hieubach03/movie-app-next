@@ -7,14 +7,15 @@ import 'swiper/css/autoplay';
 
 import { Movie } from "./type";
 import Link from "next/link";
-import useTMDB from "./hooks/useTMDB";
+import useTMDB, { TMDBReponse } from "./hooks/useTMDB";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSpinner } from '@fortawesome/free-solid-svg-icons'
 import SlideSection from "./SlideHome/SlideSection";
 import { X } from "lucide-react";
 
 export default function Home() {
-  const { movies, loading, error } = useTMDB('movie/now_playing')
+  const { data, isLoading, isError } = useTMDB('movie/now_playing')
+  const movies = data?.pages.flatMap((page: TMDBReponse) => page.movies) || []
   const [active, setActive] = useState(0);
   const [showTrailer, setShowTrailer] = useState(false);
   const [selectKey, setSelectKey] = useState<string | null>(null);
@@ -43,18 +44,18 @@ export default function Home() {
     else document.body.style.overflow = "auto"
   }, [showTrailer])
 
-  if (error) return <p>Error: {error}</p>
+  if (isError) return <p>Error: {isError}</p>
   return (
     <div>
       <div className="relative w-full h-screen pb-100">
-        {loading ? (
+        {isLoading ? (
           <p className='text-white font-semibold text-2xl text-center flex justify-center items-center h-screen w-full gap-x-3'>
             <FontAwesomeIcon icon={faSpinner} className='animate-spin w-8 h-8' />
             Loading...
           </p>
         ) : (
           <Swiper
-            // modules={[Autoplay]}
+            modules={[Autoplay]}
             spaceBetween={1}
             slidesPerView={1}
             loop={true}
@@ -108,7 +109,7 @@ export default function Home() {
                     onClick={() => setShowTrailer(false)}
                     className="absolute top-2 right-1 text-white rounded-full w-8 h-8 flex items-center justify-center text-xl hover:bg-red-700 transition-all duration-300"
                   >
-                    <X/>
+                    <X />
                   </button>
                 </div>
               </div>

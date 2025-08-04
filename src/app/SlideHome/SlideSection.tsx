@@ -7,7 +7,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay } from 'swiper/modules';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlay, faSpinner } from '@fortawesome/free-solid-svg-icons'
-import useTMDB from '../hooks/useTMDB';
+import useTMDB, { TMDBReponse } from '../hooks/useTMDB';
 interface SlideHome {
     title: string;
     endpoint: string;
@@ -15,8 +15,9 @@ interface SlideHome {
     isTV?: boolean;
 }
 const SlideSection: React.FC<SlideHome> = ({ title, endpoint, linkTo, isTV = false }) => {
-    const { movies, loading, error } = useTMDB(endpoint)
-    if (error) return <p>Error: {error}</p>
+    const { data, isLoading, isError } = useTMDB(endpoint)
+    const movies = data?.pages.flatMap((page: TMDBReponse) => page.movies) || []
+    if (isError) return <p>Error: {isError}</p>
 
     return (
         <div className='px-2'>
@@ -26,7 +27,7 @@ const SlideSection: React.FC<SlideHome> = ({ title, endpoint, linkTo, isTV = fal
                     View more
                 </Link>
             </div>
-            {loading ? (
+            {isLoading ? (
                 <p className='text-white font-semibold text-2xl text-center flex justify-center items-center h-[30vh] w-full gap-x-3'>
                     <FontAwesomeIcon icon={faSpinner} className='animate-spin w-8 h-8' />
                     Loading...
@@ -63,3 +64,4 @@ const SlideSection: React.FC<SlideHome> = ({ title, endpoint, linkTo, isTV = fal
     )
 }
 export default SlideSection
+

@@ -9,7 +9,7 @@ import Similar from '@/app/component/Similar';
 
 function page() {
     const { id } = useParams();
-    const { movie, cast, genre, similar, videos, loading, error } = useDetail(id as string, 'tv');
+    const { movie, cast, similar, videos, loading, error } = useDetail(id as string, 'tv');
 
     if (loading) {
         return (

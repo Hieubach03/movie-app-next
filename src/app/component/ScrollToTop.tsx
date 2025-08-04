@@ -1,7 +1,6 @@
 'use client';
-'use client'
 import { useEffect, useState } from 'react';
-import { ChevronsUp  } from 'lucide-react';
+import { ChevronsUp } from 'lucide-react';
 
 export default function ScrollToTop() {
   const [visible, setVisible] = useState(false);
@@ -25,7 +24,7 @@ export default function ScrollToTop() {
         onClick={scrollToTop}
         className="fixed bottom-23 lg:bottom-6 right-6 z-50 bg-red-500 text-white p-3 rounded-full shadow-lg hover:bg-red-600 transition"
       >
-        <ChevronsUp/>
+        <ChevronsUp />
       </button>
     )
   );

@@ -4,6 +4,7 @@ import "./globals.css";
 import Header from "./component/Header";
 import Footer from "./component/Footer";
 import ScrollToTop from "./component/ScrollToTop";
+import ReactQueryProvider from "./providers/ReactQueryProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -31,12 +32,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="bg-[#0F0F0F]">
-        <div>
+        <ReactQueryProvider>
           <Header />
-        </div>
-        <main>{children}</main>
-        <Footer />
-        <ScrollToTop/>
+          <main>{children}</main>
+          <Footer />
+          <ScrollToTop />
+        </ReactQueryProvider>
       </body>
     </html>
   );

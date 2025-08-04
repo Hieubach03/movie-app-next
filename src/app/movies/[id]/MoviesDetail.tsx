@@ -1,7 +1,5 @@
 import { Cast, Movie } from '@/app/type'
 import React from 'react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSpinner } from '@fortawesome/free-solid-svg-icons'
 
 function MoviesDetail({ movie, cast, videos }: { movie: Movie, cast: Cast[], videos: any[] }) {
 

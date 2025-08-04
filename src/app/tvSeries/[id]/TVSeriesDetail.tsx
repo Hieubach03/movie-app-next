@@ -1,4 +1,3 @@
-
 import { Cast, Movie } from '@/app/type'
 import React from 'react'
 

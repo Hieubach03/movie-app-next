@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Movie } from '../type';
 
 function useSearch(keyword: string) {
     const [results, setResults] = useState<Movie[]>([]);
     const [loading, setLoading] = useState(false);
-    const [error, setError] = useState<string | null>(null);
+    const [, setError] = useState<string | null>(null);
     useEffect(() => {
         if (!keyword.trim()) {
             setResults([])

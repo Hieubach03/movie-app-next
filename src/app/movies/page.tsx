@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react'
 import { Movie } from '../type'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlay, faSpinner } from '@fortawesome/free-solid-svg-icons'
-import useTMDB from '../hooks/useTMDB';
+import useTMDB, { TMDBReponse } from '../hooks/useTMDB';
 import Link from 'next/link';
 import useSearch from '../hooks/useSearch';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
@@ -12,7 +12,9 @@ import { Search, X } from 'lucide-react';
 function page() {
     const [searchText, setSearchtext] = useState('');
     const [filterMovies, setFilterMovies] = useState<Movie[]>([]);
-    const { movies, loading, error, watchMore } = useTMDB('trending/movie/day')
+    const { data, isLoading, isError, fetchNextPage } = useTMDB('trending/movie/day')
+    const movies = data?.pages.flatMap((page: TMDBReponse) => page.movies) || []
+
     const [showSuggestions, setShowSuggestion] = useState(true);
 
     const suggestions = searchText
@@ -34,7 +36,7 @@ function page() {
 
     };
 
-    if (error) return <p>Error: {error}</p>
+    if (isError) return <p>Error: {isError}</p>
     return (
         <div className=' pb-10'>
             <div className="relative w-full bg-white">
@@ -88,7 +90,7 @@ function page() {
                     )}
                 </div>
 
-                {loading ? (
+                {isLoading ? (
                     <p className='text-white font-semibold text-2xl text-center flex justify-center items-center h-[50vh] w-full gap-x-3'>
                         <FontAwesomeIcon icon={faSpinner} className='animate-spin w-9 h-9' />
                         Loading...
@@ -110,8 +112,8 @@ function page() {
                     </div>
                 )}
                 <div className=' flex justify-center'>
-                    <button onClick={watchMore} disabled={loading} className='text-white border-2 border-white text-sm font-semibold rounded-full px-5 py-1 mt-5 hover:text-red-500 hover:bg-white transition'>
-                        {loading ? 'Loading...' : 'Watch more'}
+                    <button onClick={()=> fetchNextPage()} disabled={isLoading} className='text-white border-2 border-white text-sm font-semibold rounded-full px-5 py-1 mt-5 hover:text-red-500 hover:bg-white transition'>
+                        {isLoading ? 'Loading...' : 'Watch more'}
                     </button>
                 </div>
             </div>
